@@ -13,9 +13,37 @@
             <th>Make</th>
             <th>Model</th>
             <th>Year</th>
+            <th>Body Style</th>
             <th>Mileage</th>
-            <th>Needs Repair</th>
+            <th>MPG (City)</th>
+            <th>MPG (Highway)</th>
         </tr>
+
+        <% vehicles.forEach( (vehicle) => { %>
+            <tr>
+                <td>
+                    <%= vehicle.make %>
+                </td>
+                <td>
+                    <%= vehicle.model %>
+                </td>
+                <td>
+                    <%= vehicle.year %>
+                </td>
+                <td>
+                    <%= vehicle.bodyStyle %>
+                </td>
+                <td>
+                    <%= vehicle.mileage %>
+                </td>
+                <td>
+                    <%= vehicle.mpg.city %>
+                </td>
+                <td>
+                    <%= vehicle.mpg.highway %>
+                </td>
+            </tr>
+        <% }) %>
     </table>
 
     <a href="/vehicles/addVehicle">Add Vehicle</a>
