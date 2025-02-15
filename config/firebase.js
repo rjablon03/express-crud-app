@@ -1,6 +1,4 @@
 const admin = require("firebase-admin");
-const dotenv = require("dotenv");
-dotenv.config();
 
 const serviceAccount = require("./firebaseServiceAccount.json");
 
@@ -9,5 +7,6 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
+db.settings({ignoreUndefinedProperties: true});
 
 module.exports = db;

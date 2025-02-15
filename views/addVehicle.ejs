@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehicle</title>
+</head>
+<body>
+    <h1>Add Vehicle Form</h1>
+
+    <form action="/vehicle" method="post">
+        <label for="model">Make:</label>
+        <input type="text" name="make" id="name" required>
+
+        <label for="model">Model:</label>
+        <input type="text" name="model" id="model">
+
+        <label for="year">Year:</label>
+        <input type="number" name="year" id="year">
+
+        <label for="mileage">Mileage:</label>
+        <input type="text" name="mileage" id="mileage">
+
+        <label for="needs-repair">Needs Repair:</label>
+        <input type="radio" name="needsRepair" id="true" value="True"/>
+        <input type="radio" name="needsRepair" id="false" value="False"/>
+
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>
