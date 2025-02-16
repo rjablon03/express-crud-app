@@ -2,9 +2,13 @@
     if (vehicle.id) {
         btnLabel = "Update"
         route = `/vehicles/${vehicle.id}`
+        cityMPG = vehicle.mpg.city
+        highwayMPG = vehicle.mpg.highway
     } else {
         btnLabel = 'Submit'
         route = '/vehicles'
+        cityMPG = ''
+        highwayMPG = ''
     }
 %>
 
@@ -16,38 +20,36 @@
     <title>Add Vehicle</title>
 </head>
 <body>
-    <h1>Vehicle Form</h1>
-
-    <form action="/vehicles" method="post">
+    <form action="<%=route%>" method="post">
         <label for="model">Make:</label>
-        <input type="text" name="make" id="name" required>
+        <input type="text" name="make" id="name" value="<%=vehicle.make%>" required>
 
         <label for="model">Model:</label>
-        <input type="text" name="model" id="model">
+        <input type="text" name="model" id="model" value="<%=vehicle.model%>" required>
 
         <label for="year">Year:</label>
-        <input type="number" name="year" id="year">
+        <input type="number" name="year" id="year" value="<%=vehicle.year%>" required>
 
         <label for="bodyStyle">Body Style:</label>
-        <select name="bodyStyle" id="bodyStyle">
+        <select name="bodyStyle" id="bodyStyle" required>
             <option value="">--Please choose an option--</option>
             <option value="SEDAN">Sedan</option>
             <option value="SUV">SUV</option>
             <option value="TRUCK">Truck</option>
-          </select>
+          </select> 
 
         <label for="mileage">Mileage:</label>
-        <input type="text" name="mileage" id="mileage">
+        <input type="text" name="mileage" id="mileage" value="<%=vehicle.mileage%>" required>
 
         <label for="city">City MPG:</label>
-        <input type="number" name="city" id="city">
+        <input type="number" name="city" id="city" value="<%=cityMPG%>" required>
 
         <label for="highway">Highway MPG:</label>
-        <input type="number" name="highway" id="highway">
+        <input type="number" name="highway" id="highway" value="<%=highwayMPG%>" required>
 
         <input type="submit" value="<%=btnLabel%>"/>
     </form>
 
-    <a href="/vehicles">Back</a>
+    <a href="/vehicles/<%=vehicle.id%>">Back</a>
 </body>
 </html>

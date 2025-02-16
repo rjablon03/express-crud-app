@@ -34,4 +34,13 @@ app.post('/vehicles/:id', (req, res) => {
     vehicleController.update(req, res);
 })
 
+app.get('vehicles/:id/edit', (req, res) => {
+    console.log('App.get is working!')
+    vehicleController.edit(req, res);
+})
+
+app.post('/vehicles/:id', (req, res) => {
+    vehicleController.update(req, res)
+})
+
 app.listen(port, () => console.log(`CRUD assignment server listening on port ${port}`));
