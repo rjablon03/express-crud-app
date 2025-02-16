@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <h1>Vehicle Info</h1>
+
+    <div class="info-container">
+        <p><strong>Make:</strong>&nbsp;<%=vehicle.make%></p>
+        <p><strong>Model:</strong>&nbsp;<%=vehicle.model%></p>
+        <p><strong>Year:</strong>&nbsp;<%=vehicle.year%></p>
+        <p><strong>Body Style:</strong>&nbsp;<%=vehicle.bodyStyle%></p>
+        <p><strong>Mileage:</strong>&nbsp;<%=vehicle.mileage%></p>
+        <p><strong>City MPG:</strong>&nbsp;<%=vehicle.mpg.city%></p>
+        <p><strong>Highway MPG:</strong>&nbsp;<%=vehicle.mpg.highway%></p>
+    </div>
+
+    <div class="controls">
+        <a href="/vehicles">Back</a>
+        <a href="">Edit</a>
+    </div>
+</body>
+</html>

@@ -19,12 +19,19 @@ app.get('/vehicles', (req, res) => {
 });
 
 app.get('/vehicles/addVehicle', (req, res) => {
-    console.log('Making new vehicle');
     vehicleController.newVehicle(req, res);
 });
 
-app.post('/vehicle', (req, res) => {
+app.post('/vehicles', (req, res) => {
     vehicleController.create(req, res);
+})
+
+app.get('/vehicles/:id', (req, res) => {
+    vehicleController.vehicleInfo(req, res)
+})
+
+app.post('/vehicles/:id', (req, res) => {
+    vehicleController.update(req, res);
 })
 
 app.listen(port, () => console.log(`CRUD assignment server listening on port ${port}`));

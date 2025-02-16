@@ -6,36 +6,8 @@
     <title>Add Vehicle</title>
 </head>
 <body>
-    <h1>Add Vehicle Form</h1>
+    <h1>Add New Vehicle</h1>
 
-    <form action="/vehicle" method="post">
-        <label for="model">Make:</label>
-        <input type="text" name="make" id="name" required>
-
-        <label for="model">Model:</label>
-        <input type="text" name="model" id="model">
-
-        <label for="year">Year:</label>
-        <input type="number" name="year" id="year">
-
-        <label for="bodyStyle">Body Style:</label>
-        <select name="bodyStyle" id="bodyStyle">
-            <option value="">--Please choose an option--</option>
-            <option value="SEDAN">Sedan</option>
-            <option value="SUV">SUV</option>
-            <option value="TRUCK">Truck</option>
-          </select>
-
-        <label for="mileage">Mileage:</label>
-        <input type="text" name="mileage" id="mileage">
-
-        <label for="city">City MPG:</label>
-        <input type="number" name="city" id="city">
-
-        <label for="highway">Highway MPG:</label>
-        <input type="number" name="highway" id="highway">
-
-        <input type="submit" value="Submit"/>
-    </form>
+    <%- include('vehicleForm') %>
 </body>
 </html>

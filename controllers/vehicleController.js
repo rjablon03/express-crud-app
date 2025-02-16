@@ -5,13 +5,9 @@ class VehicleController {
     async index(req, res) {
         try {
             let snapshot = await db.collection('vehicles').get();
-            let documents = [];
+            const vehicles = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
 
-            snapshot.forEach((doc) => {
-                documents.push(new Vehicle(doc.data()));
-            })
-
-            res.render('vehicleIndex', { vehicles: documents })
+            res.render('vehicleIndex', { vehicles: vehicles })
         }
         catch (err) {
             console.log(err);
@@ -24,7 +20,7 @@ class VehicleController {
 
     async create(req, res) {
         try {
-            const mpg = {'city': req.body.city, 'highway': req.body.highway};
+            const mpg = {'city': parseInt(req.body.city), 'highway': parseInt(req.body.highway)};
             req.body.mpg = mpg;
             delete req.body.city;
             delete req.body.highway;
@@ -35,13 +31,30 @@ class VehicleController {
             console.log(req.body);
             const docRef = await db.collection('vehicles').add({...newVehicle});
 
-            res.writeHead(302, {'Location': '/vehicles'}); // Left off here, need to route to newVehicle info or home page
+            res.writeHead(302, {'Location': '/vehicles'}); 
             res.end();
         }
         catch (err) {
             console.log(err)
         }
     };
+
+    async vehicleInfo(req, res) {
+        const id = req.params.id;
+        const vehicle = await db.collection('vehicles').doc(id).get();
+
+        res.render('vehicleInfo', { vehicle: vehicle.data()});
+    }
+
+    async update(req, res) {
+        try {
+            const vehicle = new Vehicle(req.body);
+            await db.collection('vehicles').doc(id).set(...vehicle, {merge: true});
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 }
 
 module.exports = VehicleController;
