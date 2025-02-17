@@ -1,15 +1,15 @@
 <%
-    if (vehicle.id) {
-        btnLabel = "Update"
-        route = `/vehicles/${vehicle.id}`
-        cityMPG = vehicle.mpg.city
-        highwayMPG = vehicle.mpg.highway
-    } else {
-        btnLabel = 'Submit'
-        route = '/vehicles'
-        cityMPG = ''
-        highwayMPG = ''
-    }
+if (vehicle.id) {
+    btnLabel = "Update";
+    route = `/vehicles/${vehicle.id}`;
+    cityMPG = vehicle.mpg.city
+    highwayMPG = vehicle.mpg.highway
+} else {
+    btnLabel = "Create";
+    route = "/vehicles";
+    cityMPG = ''
+    highwayMPG = ''
+}
 %>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Vehicle</title>
+    <title>Vehicle Form</title>
 </head>
 <body>
     <form action="<%=route%>" method="post">
@@ -33,10 +33,10 @@
         <label for="bodyStyle">Body Style:</label>
         <select name="bodyStyle" id="bodyStyle" required>
             <option value="">--Please choose an option--</option>
-            <option value="SEDAN">Sedan</option>
-            <option value="SUV">SUV</option>
-            <option value="TRUCK">Truck</option>
-          </select> 
+            <option value="SEDAN" <%= vehicle && vehicle.bodyStyle === 'SEDAN' ? 'selected' : '' %>>Sedan</option>
+            <option value="SUV" <%= vehicle && vehicle.bodyStyle === 'SUV' ? 'selected' : '' %>>SUV</option>
+            <option value="TRUCK" <%= vehicle && vehicle.bodyStyle === 'TRUCK' ? 'selected' : '' %>>Truck</option>
+        </select> 
 
         <label for="mileage">Mileage:</label>
         <input type="text" name="mileage" id="mileage" value="<%=vehicle.mileage%>" required>

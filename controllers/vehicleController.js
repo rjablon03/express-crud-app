@@ -29,7 +29,7 @@ class VehicleController {
 
             console.log('Adding the following vehicle object to the database');
             console.log(req.body);
-            const docRef = await db.collection('vehicles').add({...newVehicle});
+            await db.collection('vehicles').add({...newVehicle});
 
             res.writeHead(302, {'Location': '/vehicles'}); 
             res.end();
@@ -47,19 +47,21 @@ class VehicleController {
     }
 
     async edit(req, res) {
-        console.log('In the edit function!')
         const id = req.params.id;
-        console.log(id)
-        const vehicle = await db.collection('vehicles').doc(id).get()
-        console.log('Got the vehicle!')
+        const doc = await db.collection('vehicles').doc(id).get();
+        const vehicle = new Vehicle(doc.data());
+        vehicle.id = id;
 
-        res.render('vehicleEditor', {vehicle: vehicle.data()});
+        res.render('vehicleEditor', {vehicle});
     }
 
     async update(req, res) {
         try {
             const vehicle = new Vehicle(req.body);
-            await db.collection('vehicles').doc(id).set(...vehicle, {merge: true});
+            await db.collection('vehicles').doc(req.params.id).set({...vehicle}, {merge: true});
+
+            res.writeHead(302, {'Location': '/vehicles'}); 
+            res.end();
         }
         catch (err) {
             console.log(err);

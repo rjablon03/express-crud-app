@@ -30,12 +30,7 @@ app.get('/vehicles/:id', (req, res) => {
     vehicleController.vehicleInfo(req, res)
 })
 
-app.post('/vehicles/:id', (req, res) => {
-    vehicleController.update(req, res);
-})
-
-app.get('vehicles/:id/edit', (req, res) => {
-    console.log('App.get is working!')
+app.get('/vehicles/:id/edit', (req, res) => {
     vehicleController.edit(req, res);
 })
 
