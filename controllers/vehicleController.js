@@ -41,9 +41,11 @@ class VehicleController {
 
     async vehicleInfo(req, res) {
         const id = req.params.id;
-        const vehicle = await db.collection('vehicles').doc(id).get();
+        const doc = await db.collection('vehicles').doc(id).get();
+        const vehicle = new Vehicle(doc.data());
+        vehicle.id = id;
 
-        res.render('vehicleInfo', { vehicle: vehicle.data()});
+        res.render('vehicleInfo', {vehicle});
     }
 
     async edit(req, res) {
