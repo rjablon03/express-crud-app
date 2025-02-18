@@ -62,6 +62,9 @@ class VehicleController {
             const id = req.params.id
             const vehicle = new Vehicle(req.body);
 
+            const mpg = {'city': parseInt(req.body.city), 'highway': parseInt(req.body.highway)};
+            vehicle.mpg = mpg;
+
             await db.collection('vehicles').doc(id).set({...vehicle}, {merge: true});
 
             console.log(`Vehicle '${id}' has been updated with the following information`)
@@ -79,7 +82,7 @@ class VehicleController {
         try {
             const id = req.params.id;
             await db.collection('vehicles').doc(id).delete();
-            console.log(`Vehicle '${id}' has been deleted`)
+            console.log(`Vehicle '${id}' has been deleted\n`)
             
             res.writeHead(302, {'Location': '/vehicles'}); 
             res.end();
