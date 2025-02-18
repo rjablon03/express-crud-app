@@ -59,9 +59,28 @@ class VehicleController {
 
     async update(req, res) {
         try {
+            const id = req.params.id
             const vehicle = new Vehicle(req.body);
-            await db.collection('vehicles').doc(req.params.id).set({...vehicle}, {merge: true});
 
+            await db.collection('vehicles').doc(id).set({...vehicle}, {merge: true});
+
+            console.log(`Vehicle '${id}' has been updated with the following information`)
+            console.log(req.body);
+
+            res.writeHead(302, {'Location': '/vehicles'}); 
+            res.end();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    async deleteVehicle(req, res) {
+        try {
+            const id = req.params.id;
+            await db.collection('vehicles').doc(id).delete();
+            console.log(`Vehicle '${id}' has been deleted`)
+            
             res.writeHead(302, {'Location': '/vehicles'}); 
             res.end();
         }
