@@ -8,6 +8,16 @@
 <body>
     <h1>Vehicle Manager</h1>
 
+    <% if (viewedVehicles.length > 0) { %>
+        <h3>Vehicle History</h3>
+        <ul>
+            <% viewedVehicles.forEach((vehicle) => { %>
+                <li><%=vehicle.year%> <%=vehicle.make%> <%=vehicle.model%> <a href="vehicles/<%=vehicle.id%>">Show</a></li>
+            <% }) %>
+        </ul>
+    <% } %>
+    
+
     <table>
         <tr>
             <th>Make</th>

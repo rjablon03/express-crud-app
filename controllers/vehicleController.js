@@ -6,8 +6,21 @@ class VehicleController {
         try {
             let snapshot = await db.collection('vehicles').get();
             const vehicles = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+            let history = req.cookies.viewedVehicles ? JSON.parse(req.cookies.viewedVehicles) : [];
+            let viewedVehicles = [];
 
-            res.render('vehicleIndex', { vehicles: vehicles })
+            if (history != []) {
+
+                for (let i = 0; i < history.length; i++) {
+                    const vehicle = vehicles.find(vehicle => vehicle.id === history[i])
+                    viewedVehicles.push(vehicle)
+                }
+            }
+
+            console.log(vehicles);
+            console.log(viewedVehicles)
+
+            res.render('vehicleIndex', { vehicles: vehicles, viewedVehicles: viewedVehicles })
         }
         catch (err) {
             console.log(err);
@@ -46,6 +59,18 @@ class VehicleController {
         const doc = await db.collection('vehicles').doc(id).get();
         const vehicle = new Vehicle(doc.data());
         vehicle.id = id;
+
+        let history = req.cookies.viewedVehicles ? JSON.parse(req.cookies.viewedVehicles) : [];
+
+        history = history.filter(id => id !== vehicle.id);
+
+        history.unshift(vehicle.id);
+
+        if (history.length > 3) {
+            history.pop();
+        }
+
+        res.cookie("viewedVehicles", JSON.stringify(history), { maxAge: 7 * 24 * 60 * 60 * 1000, httpOnly: true });
 
         res.render('vehicleInfo', {vehicle});
     }
