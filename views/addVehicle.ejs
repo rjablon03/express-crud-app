@@ -8,6 +8,12 @@
 <body>
     <h1>Add New Vehicle</h1>
 
+    <% if (vehicle.errors.length > 0) { %>
+        <ul>
+            <%- vehicle.errors.map((error) => `<li>${error}</li>`).join("\n"); %>
+        </ul>
+    <% } %>
+
     <%- include('vehicleForm') %>
 </body>
 </html>

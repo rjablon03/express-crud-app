@@ -20,15 +20,17 @@ class VehicleController {
 
     async create(req, res) {
         try {
-            const mpg = {'city': parseInt(req.body.city), 'highway': parseInt(req.body.highway)};
-            req.body.mpg = mpg;
-            delete req.body.city;
-            delete req.body.highway;
-
             const newVehicle = new Vehicle(req.body);
 
             console.log('Adding the following vehicle object to the database');
             console.log(req.body);
+
+            if (!newVehicle.checkVehicle()) {
+                res.render('addVehicle', { vehicle: newVehicle })
+                return
+            }
+
+            delete newVehicle.errors;
             await db.collection('vehicles').add({...newVehicle});
 
             res.writeHead(302, {'Location': '/vehicles'}); 
@@ -54,16 +56,19 @@ class VehicleController {
         const vehicle = new Vehicle(doc.data());
         vehicle.id = id;
 
-        res.render('vehicleEditor', {vehicle});
+        res.render('vehicleEditor', {vehicle: vehicle});
     }
 
     async update(req, res) {
         try {
             const id = req.params.id
             const vehicle = new Vehicle(req.body);
+            vehicle.id = id;
 
-            const mpg = {'city': parseInt(req.body.city), 'highway': parseInt(req.body.highway)};
-            vehicle.mpg = mpg;
+            if (!vehicle.checkVehicle()) {
+                res.render('vehicleEditor', {vehicle: vehicle})
+                res.end();
+            }
 
             await db.collection('vehicles').doc(id).set({...vehicle}, {merge: true});
 

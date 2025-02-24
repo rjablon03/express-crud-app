@@ -2,13 +2,9 @@
 if (vehicle.id) {
     btnLabel = "Update";
     route = `/vehicles/${vehicle.id}`;
-    cityMPG = vehicle.mpg.city
-    highwayMPG = vehicle.mpg.highway
 } else {
     btnLabel = "Create";
     route = "/vehicles";
-    cityMPG = 0
-    highwayMPG = 0
 }
 %>
 
@@ -41,11 +37,11 @@ if (vehicle.id) {
         <label for="mileage">Mileage:</label>
         <input type="text" name="mileage" id="mileage" value="<%=vehicle.mileage%>" required>
 
-        <label for="city">City MPG:</label>
-        <input type="number" name="city" id="city" value="<%=cityMPG%>" required>
+        <label for="cityMPG">City MPG:</label>
+        <input type="number" name="cityMPG" id="cityMPG" value="<%=vehicle.cityMPG%>" required>
 
-        <label for="highway">Highway MPG:</label>
-        <input type="number" name="highway" id="highway" value="<%=highwayMPG%>" required>
+        <label for="highwayMPG">Highway MPG:</label>
+        <input type="number" name="highwayMPG" id="highwayMPG" value="<%=vehicle.highwayMPG%>" required>
 
         <input type="submit" value="<%=btnLabel%>"/>
     </form>

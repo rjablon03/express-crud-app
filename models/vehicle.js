@@ -7,8 +7,29 @@ class Vehicle {
             this.year = parseInt(description.year);
             this.bodyStyle = description.bodyStyle
             this.mileage = parseInt(description.mileage);
-            this.mpg = description.mpg
+            this.cityMPG = parseInt(description.cityMPG);
+            this.highwayMPG = parseInt(description.highwayMPG);
         }
+        this.errors = []
+    }
+
+    checkVehicle() {
+        this.errors = []
+
+        if (this.year <= 0) {
+            this.errors.push('Year cannot be zero or negative');
+        }
+        if (this.mileage < 0) {
+            this.errors.push('Mileage cannot be negative');
+        }
+        if (this.cityMPG <= 0) {
+            this.errors.push('City MPG cannot be zero or negative');
+        }
+        if (this.highwayMPG <= 0) {
+            this.errors.push('Highway MPG cannot be zero or null')
+        }
+
+        return this.errors.length === 0;
     }
 }
 
